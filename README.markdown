@@ -1,26 +1,25 @@
 DogTheDataHunter
 ================
 
-Adds a named scope to your models called search.
-Can search on any attribute you specify.
+Adds a named scope named search to any of your models. Once included, you can search on any attribute you specify.
+
 
 Example
 =======
 
-Add this module to lib/
-include it in any model which you would like to perform searches on.
-To include an attribute in the search query, simple call the search_attributes method like so:
+You have a User model and would like to be able to search all users by either their first name, last name or email address:
 
      class User < ActiveRecord::Base
      
        include DogTheDataHunter
 
-       search_attributes :first_name, :last_name, :exact_match => false
+       search_attributes :first_name, :last_name, :email, :exact_match => false
 
      end
 
 This creates a named scope on the model called "search" which you can pass a string to:
-User.search("Gavin").order("last_name, first_name")
+    
+    User.search("Gavin").all(:order => "last_name, first_name")
 
 Options:
 
