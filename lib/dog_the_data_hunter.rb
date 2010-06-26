@@ -40,7 +40,7 @@ module DogTheDataHunter
       def self.search_query_string( crit )
         string_array = []
         search_attributes.each do |att|
-          string_array << "#{table_name}.#{att} #{ @@exact_match ? "= \"#{crit}\"" : "LIKE \"%#{crit}%\"" }"
+          string_array << "#{table_name}.#{att} #{ @@exact_match ? "= #{connection.quote crit}" : "LIKE #{connection.quote "%#{crit}%"}" }"
         end
         string_array.join(" OR ")
       end
